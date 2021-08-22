@@ -10,14 +10,18 @@ const db = {};
 
 const customConfig = {
   host: process.env.DB_HOST,
-  dialect: 'postgres',
+  dialect: "postgres",
   logging: false,
   dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false
     }
-  }
+  },
+  query: {
+    "raw": true
+  },
+  timezone: "+07:00"
 }
 
 let sequelize;
