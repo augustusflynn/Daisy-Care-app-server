@@ -142,9 +142,91 @@ let getDetailClinicByIdService = (id) => {
 	})
 }
 
+let updateClinicData = (data) => {
+	return new Promise(async (resolve, reject) => {
+		const {
+			id,
+			nameVi,
+			nameEn,
+			descriptionHTML,
+			descriptionMarkdown,
+			image,
+			address
+		} = data
+		try {
+			if (!id)
+				resolve({
+					errCode: 2,
+					errMessage: 'Missing required parrameter!'
+				})
+			let clinic = await db.Clinic.findOne({
+				where: { id: id },
+				raw: false
+			});
+			console.log('asdasdasdasd', address)
+			if (clinic) {
+				clinic.nameVi = nameVi;
+				clinic.nameEn = nameEn;
+				clinic.address = address;
+				clinic.descriptionHTML = descriptionHTML;
+				clinic.descriptionMarkdown = descriptionMarkdown;
+				if (data.image)
+					clinic.image = image;
+
+				clinic.save()
+				resolve({
+					errCode: 0,
+					message: "Update clinic succeeded!"
+				});
+			}
+			else {
+				resolve({
+					errCode: 1,
+					errMessage: "Clinic not found!"
+				});
+			}
+
+		} catch (er) {
+			reject(er);
+		}
+	})
+}
+
+let deleteClinicById = (id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let clinic = await db.Clinic.findOne({
+				where: { id: id }
+			})
+
+			if (!clinic)
+				resolve({
+					errCode: 2,
+					errMessage: "The clinic isn't exist!"
+				})
+			else {
+				//          way1          //
+				// await user.destroy();
+				//       way2     //
+				db.Clinic.destroy({
+					where: { id: id }
+				})
+				resolve({
+					errCode: 0,
+					message: "The clinic has been deleted!"
+				});
+			}
+		} catch (er) {
+			reject(er);
+		}
+	})
+}
+
 module.exports = {
 	createClinicService,
 	getTopClinicService,
 	getAllClinicsService,
-	getDetailClinicByIdService
+	getDetailClinicByIdService,
+	updateClinicData,
+	deleteClinicById
 }

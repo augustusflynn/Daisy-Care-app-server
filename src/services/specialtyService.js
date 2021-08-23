@@ -147,9 +147,88 @@ let getDetailSpecialtyByIdService = (id, location) => {
 }
 
 
+let updateSpecialtyData = (data) => {
+	return new Promise(async (resolve, reject) => {
+		const {
+			id,
+			nameVi,
+			nameEn,
+			descriptionHTML,
+			descriptionMarkdown,
+			image
+		} = data
+		try {
+			if (!id)
+				resolve({
+					errCode: 2,
+					errMessage: 'Missing required parrameter!'
+				})
+			let specialty = await db.Specialty.findOne({
+				where: { id: id },
+				raw: false
+			});
+			if (specialty) {
+				specialty.nameVi = nameVi;
+				specialty.nameEn = nameEn;
+				specialty.descriptionHTML = descriptionHTML;
+				specialty.descriptionMarkdown = descriptionMarkdown;
+				if (data.image)
+					specialty.image = image;
+
+				clinic.save()
+				resolve({
+					errCode: 0,
+					message: "Update specialty succeeded!"
+				});
+			}
+			else {
+				resolve({
+					errCode: 1,
+					errMessage: "Specialty not found!"
+				});
+			}
+
+		} catch (er) {
+			reject(er);
+		}
+	})
+}
+
+let deleteSpecialtyById = (id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let specialty = await db.Specialty.findOne({
+				where: { id: id }
+			})
+
+			if (!specialty)
+				resolve({
+					errCode: 2,
+					errMessage: "The specialty isn't exist!"
+				})
+			else {
+				//          way1          //
+				// await user.destroy();
+				//       way2     //
+				db.Specialty.destroy({
+					where: { id: id }
+				})
+				resolve({
+					errCode: 0,
+					message: "The specialty has been deleted!"
+				});
+			}
+		} catch (er) {
+			reject(er);
+		}
+	})
+}
+
 module.exports = {
 	createSpecialtyService,
 	getTopSpecialtyService,
 	getAllSpecialtiesService,
-	getDetailSpecialtyByIdService
+	getDetailSpecialtyByIdService,
+	updateSpecialtyData,
+	deleteSpecialtyById
 }
