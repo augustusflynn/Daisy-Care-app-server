@@ -1,5 +1,6 @@
 import db from '../models/index'
 import bcrypt from 'bcryptjs';
+import axios from 'axios';
 
 var salt = bcrypt.genSaltSync(10);
 
@@ -149,6 +150,18 @@ let createUser = async (data) => {
                         image: image ? image : "",
                         birthday: birthday
                     })
+
+                    await axios.post(`${process.env.URL_SUPPORT}/sign-up`, {
+                        email: email,
+                        password: hasPasswordFromCrypt,
+                        fullName: `${firstName} ${lastName}`,
+                        userRole: "R2",
+                        lastActiveAt: new Date()
+                    }).catch(e => {
+                        console.log('mongoose error', e)
+                    })
+
+
                     resolve({
                         errCode: 0,
                         message: "Create user succeeded!"
