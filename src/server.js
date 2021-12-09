@@ -9,9 +9,13 @@ require('dotenv').config();
 let app = express();
 
 app.use(function (req, res, next) {
-
+  const allowedOrigins = [process.env.URL_REACT1, process.env.URL_REACT2, process.env.URL_REACT3];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', process.env.URL_REACT);
+  // res.setHeader('Access-Control-Allow-Origin', process.env.URL_REACT);
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
