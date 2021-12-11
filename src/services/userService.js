@@ -176,7 +176,7 @@ let createUser = async (data) => {
 					if(roleId === "R2") {
 						await axios.post(`${process.env.URL_SUPPORT}/create-employee`, {
 							employeeId: result.dataValues.id,
-							employeeBirthDay: hasPasswordFromCrypt,
+							employeeBirthDay: birthday,
 							employeeFullName: `${firstName} ${lastName}`,
 							employeeGender: "R2",
 							lastActiveAt: new Date()
