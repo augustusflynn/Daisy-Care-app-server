@@ -178,7 +178,7 @@ let createUser = async (data) => {
 							employeeId: result.dataValues.id,
 							employeeBirthDay: birthday,
 							employeeFullName: `${firstName} ${lastName}`,
-							employeeGender: "R2",
+							employeeGender: gender,
 							lastActiveAt: new Date()
 						}).catch(e => {
 							console.log('create employee error', e)
