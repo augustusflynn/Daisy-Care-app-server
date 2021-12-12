@@ -164,7 +164,7 @@ let createUser = async (data) => {
 					if(roleId === "R3") {
 						await axios.post(`${process.env.URL_SUPPORT}/sign-up`, {
 							email: email,
-							password: hasPasswordFromCrypt,
+							password: password,
 							fullName: `${firstName} ${lastName}`,
 							userRole: "R2", //R2 ben support la khach hang
 							lastActiveAt: new Date()
