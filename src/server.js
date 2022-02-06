@@ -9,7 +9,7 @@ require('dotenv').config();
 let app = express();
 
 app.use(function (req, res, next) {
-  const allowedOrigins = [process.env.URL_REACT1, process.env.URL_REACT2, process.env.URL_REACT3];
+  const allowedOrigins = ["http://localhost:3000", process.env.URL_REACT1, process.env.URL_REACT2, process.env.URL_REACT3];
   const origin = req.headers.origin;
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);

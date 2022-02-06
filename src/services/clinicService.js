@@ -24,7 +24,8 @@ let createClinicService = (data) => {
 					descriptionHTML: descriptionHTML,
 					image: image,
 					nameVi: nameVi,
-					nameEn: nameEn
+					nameEn: nameEn,
+					address: address
 				})
 
 				resolve({

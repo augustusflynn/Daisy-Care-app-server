@@ -137,7 +137,7 @@ let createUser = async (data) => {
 				}
 				else {
 					let hasPasswordFromCrypt = await hashPassword(password);
-					if(!roleId) {
+					if (!roleId) {
 						roleId = "R3"
 					}
 
@@ -155,13 +155,13 @@ let createUser = async (data) => {
 						birthday: birthday
 					})
 
-					if(!result)
+					if (!result)
 						resolve({
 							errCode: 1,
 							errMessage: "Create failed"
 						});
 
-					if(roleId === "R3") {
+					if (roleId === "R3") {
 						await axios.post(`${process.env.URL_SUPPORT}/sign-up`, {
 							email: email,
 							password: password,
@@ -172,8 +172,8 @@ let createUser = async (data) => {
 							console.log('mongoose error', e)
 						})
 					}
-					
-					if(roleId === "R2") {
+
+					if (roleId === "R2") {
 						await axios.post(`${process.env.URL_SUPPORT}/create-employee`, {
 							employeeId: result.dataValues.id,
 							employeeBirthDay: birthday,
@@ -233,6 +233,7 @@ let updateUserData = (data) => {
 				user.positionId = data.positionId;
 				user.gender = data.gender;
 				user.phoneNumber = data.phoneNumber;
+				user.birthday = data.birthday;
 				if (data.image)
 					user.image = data.image;
 
@@ -317,7 +318,7 @@ let findUser = (data) => {
 			age
 		} = data;
 
-		try { 
+		try {
 			let user = await db.User.findOne({
 				where: { firstName: firstName, lastName: lastName, gender: gender },
 				attributes: {
@@ -325,12 +326,12 @@ let findUser = (data) => {
 				},
 				raw: true
 			});
-			if(user && user.birthday) {
+			if (user && user.birthday) {
 				let year = user.birthday.split('/')[2];
 				let yearToNow = parseInt(year) + parseInt(age);
 				let now = new Date().getFullYear();
 				let approximatly = Math.abs(yearToNow - now);
-				if(approximatly <= 5) {
+				if (approximatly <= 5) {
 					resolve(user);
 				}
 			}
