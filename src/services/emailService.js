@@ -1,5 +1,5 @@
 require('dotenv').config()
-import nodemailer from "nodemailer";
+const nodemailer = require("nodemailer");
 
 let sendEmailSync = async (recieveData) => {
 	const { recieverEmail, patientName, time, doctorName, redirectLink, language } = recieveData

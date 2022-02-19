@@ -1,4 +1,4 @@
-import userService from '../services/userService';
+const userService = require('../services/userService');
 
 let handleLogin = async (req, res) => {
     let email = req.body.email;
@@ -86,6 +86,30 @@ let handleFindUser = async (req, res) => {
     }
 }
 
+let handleFindUserSchedules = async (req, res) => {
+    try {
+        let data = await userService.findUserSchedules(req.body.userId);
+        return res.status(200).json(data);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server!"
+        })
+    }
+}
+
+let handleUserCancelSchedule = async (req, res) => {
+    try {
+        let data = await userService.userCancelSchedule(req.body.scheduleId);
+        return res.status(200).json(data);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server!"
+        })
+    }
+}
+
 module.exports = {
     handleLogin: handleLogin,
     handleGetUsers: handleGetUsers,
@@ -93,5 +117,7 @@ module.exports = {
     handleEditUser: handleEditUser,
     handleDeleteUser: handleDeleteUser,
     getAllCode: getAllCode,
-    handleFindUser: handleFindUser
+    handleFindUser: handleFindUser,
+    handleFindUserSchedules,
+    handleUserCancelSchedule
 }

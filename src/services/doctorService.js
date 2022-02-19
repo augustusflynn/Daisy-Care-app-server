@@ -1,7 +1,7 @@
-import db from '../models/index'
-import _ from 'lodash'
+const db = require('../models/index');
+const _ = require('lodash');
 require('dotenv').config()
-import emailService from './emailService'
+const emailService = require('./emailService');
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 

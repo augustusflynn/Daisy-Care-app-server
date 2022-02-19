@@ -1,21 +1,20 @@
-import express from 'express'
+const express = require('express');
 //to get parrams
-import bodyParser from 'body-parser'
-import viewEngine from './config/viewEngine'
-import initWebRoutes from './route/web'
-import connectDB from './config/connectDb'
+const bodyParser = require('body-parser');
+const viewEngine = require('./config/viewEngine');
+const initWebRoutes = require('./route/web');
+const connectDB = require('./config/connectDb');
 require('dotenv').config();
 
 let app = express();
 
 app.use(function (req, res, next) {
-  const allowedOrigins = ["http://localhost:3000", process.env.URL_REACT1, process.env.URL_REACT2, process.env.URL_REACT3];
+  // Website you wish to allow to connect
+  const allowedOrigins = [process.env.MOBILE_APP, process.env.URL_REACT1, process.env.URL_REACT2, process.env.URL_REACT3];
   const origin = req.headers.origin;
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
-  // Website you wish to allow to connect
-  // res.setHeader('Access-Control-Allow-Origin', process.env.URL_REACT);
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

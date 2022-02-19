@@ -1,4 +1,4 @@
-import patientService from '../services/patientService'
+const patientService = require('../services/patientService');
 
 let bookingAppointment = async (req, res) => {
 	 try {

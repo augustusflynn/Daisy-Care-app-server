@@ -1,6 +1,6 @@
-import db from '../models/index'
-import bcrypt from 'bcryptjs';
-import axios from 'axios';
+const db = require ('../models/index');
+const bcrypt = require('bcryptjs');
+const axios = require('axios');
 
 var salt = bcrypt.genSaltSync(10);
 
@@ -343,6 +343,50 @@ let findUser = (data) => {
 	})
 }
 
+let findUserSchedules = (userId) => {
+	return new Promise(async (resolve, reject) => {
+		if (!userId) {
+			reject("Error! Missing user id params");
+		}
+		try {
+			let dataSchedule = await db.Booking.findAll({
+				where: { patientId: userId },
+				include: [
+						{ model: db.Allcode, as: 'timeData', attributes: ["valueEn", "valueVi"] },
+						{ model: db.User, as: 'doctor', attributes: ["firstName", "lastName"] },
+				],
+				nest: true,
+				raw: true
+			})
+			if (dataSchedule) {
+				resolve(dataSchedule)
+			} else {
+				resolve([])
+			}
+		} catch (e) {
+			console.log(e);
+			reject(e);
+		}
+	})
+}
+
+let userCancelSchedule = (scheduleId) => {
+	return new Promise(async (resolve, reject) => {
+		if (!scheduleId) {
+			reject("Error! Missing schedule id params");
+		}
+		try {
+			db.Booking.destroy({
+				where: { id: scheduleId }
+			});
+			resolve("OK")
+		} catch (e) {
+			console.log(e);
+			reject(e);
+		}
+	})
+}
+
 module.exports = {
 	handleLogin: handleLogin,
 	getUser: getUser,
@@ -350,5 +394,7 @@ module.exports = {
 	updateUserData: updateUserData,
 	deleteUserById: deleteUserById,
 	getAllCodeService: getAllCodeService,
-	findUser: findUser
+	findUser: findUser,
+	findUserSchedules,
+	userCancelSchedule
 }

@@ -1,4 +1,4 @@
-import db from '../models/index'
+const db = require('../models/index');
 require('dotenv').config()
 
 let createSpecialtyService = (data) => {
@@ -175,7 +175,7 @@ let updateSpecialtyData = (data) => {
 				if (data.image)
 					specialty.image = image;
 
-				clinic.save()
+				specialty.save()
 				resolve({
 					errCode: 0,
 					message: "Update specialty succeeded!"

@@ -1,15 +1,15 @@
-import express from 'express'
-import homeController from '../controllers/home.controller'
-import userController from '../controllers/user.controller';
-import doctorController from '../controllers/doctor.controller'
-import patientController from '../controllers/patient.controller'
-import specialtyController from '../controllers/specialty.controller'
-import clinicController from '../controllers/clinic.controller'
+const express = require('express');
+const homeController = require('../controllers/home.controller');
+const userController = require('../controllers/user.controller');;
+const doctorController = require('../controllers/doctor.controller');
+const patientController = require('../controllers/patient.controller');
+const specialtyController = require('../controllers/specialty.controller');
+const clinicController = require('../controllers/clinic.controller');
 
 let router = express.Router();
 
 let initWebRoutes = (app) => {
-    router.get('/', homeController.getHomePage)
+    router.get('/', homeController.getHomePage);
     
     router.post('/AI/findUser', userController.handleFindUser);
 
@@ -21,6 +21,8 @@ let initWebRoutes = (app) => {
     router.put('/api/edit-user', userController.handleEditUser)
     router.delete('/api/delete-user', userController.handleDeleteUser)
     router.get('/api/allcode', userController.getAllCode)
+    router.post('/api/get-user-schedules', userController.handleFindUserSchedules);
+    router.post('/api/user-cancel-schedule', userController.handleUserCancelSchedule);
 
     router.get('/api/top-doctor-home', doctorController.getTopDoctorHome)
     router.get('/api/get-all-doctors', doctorController.getAllDoctors)
