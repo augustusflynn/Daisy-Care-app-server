@@ -23,7 +23,12 @@ let getTopDoctorsHome = (inputLimit) => {
                 nest: true,
                 raw: true
             })
-
+            if (doctors && doctors.length > 0) {
+                //decode
+                for (let i = 0; i < doctors.length; i++) {
+                    doctors[i].image = Buffer.from(doctors[i].image, 'base64').toString('binary')
+                }
+            }
             resolve({
                 errCode: 0,
                 data: doctors
@@ -44,7 +49,12 @@ let getAllDoctorsService = () => {
                     exclude: ["password"]
                 },
             })
-
+            if (doctors && doctors.length > 0) {
+                //decode
+                for (let i = 0; i < doctors.length; i++) {
+                    doctors[i].image = Buffer.from(doctors[i].image, 'base64').toString('binary')
+                }
+            }
             resolve({
                 errCode: 0,
                 data: doctors
