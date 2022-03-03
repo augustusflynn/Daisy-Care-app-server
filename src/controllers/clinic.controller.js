@@ -32,6 +32,7 @@ let getTopClinicHome = async (req, res) => {
 
 let getAllClinics = async (req, res) => {
     try {
+        console.log('hello ??? ');
         let clinics = await clinicService.getAllClinicsService()
         return res.status(200).json(clinics)
     } catch (e) {

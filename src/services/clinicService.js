@@ -76,11 +76,11 @@ let getTopClinicService = (limit) => {
 	})
 }
 
-let getAllClinicsService = (data) => {
+let getAllClinicsService = () => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			let data = await db.Clinic.findAll()
-
+			console.log(data);
 			if (data && data.length > 0) {
 				data.map((item) => {
 					item.image = Buffer.from(item.image, 'base64').toString('binary');
@@ -88,7 +88,7 @@ let getAllClinicsService = (data) => {
 					return item;
 				})
 			}
-
+			console.log(data);
 			resolve({
 				errCode: 0,
 				data: data
