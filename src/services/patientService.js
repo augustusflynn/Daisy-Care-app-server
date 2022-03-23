@@ -4,7 +4,7 @@ const emailService = require('./emailService');
 const { v4: uuidv4 } = require('uuid');
 
 let buildUrlEmail = (doctorId, token) => {
-	let result = `${process.env.URL_REACT}/verify-booking?token=${token}&doctorId=${doctorId}`
+	let result = `${process.env.URL_REACT2}/verify-booking?token=${token}&doctorId=${doctorId}`
 
 	return result;
 }

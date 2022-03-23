@@ -53,7 +53,10 @@ let initWebRoutes = (app) => {
     router.get('/api/get-detail-clinic-by-id', clinicController.getDetailClinicById)
     router.put('/api/edit-clinic', clinicController.handleEditClinic)
     router.delete('/api/delete-clinic', clinicController.handleDeleteClinic)
-
+    router.get('/*', (req, res) => {
+        const fileUrl = __dirname.split('src')[0]
+        return res.sendFile(fileUrl + `/${req.params['0']}`)
+    });
 
     app.use('/', router);
 }

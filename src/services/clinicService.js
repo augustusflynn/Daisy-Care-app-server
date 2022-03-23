@@ -80,7 +80,6 @@ let getAllClinicsService = () => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			let data = await db.Clinic.findAll()
-			console.log(data);
 			if (data && data.length > 0) {
 				data.map((item) => {
 					item.image = Buffer.from(item.image, 'base64').toString('binary');
@@ -88,7 +87,6 @@ let getAllClinicsService = () => {
 					return item;
 				})
 			}
-			console.log(data);
 			resolve({
 				errCode: 0,
 				data: data
@@ -164,7 +162,6 @@ let updateClinicData = (data) => {
 				where: { id: id },
 				raw: false
 			});
-			console.log('asdasdasdasd', address)
 			if (clinic) {
 				clinic.nameVi = nameVi;
 				clinic.nameEn = nameEn;

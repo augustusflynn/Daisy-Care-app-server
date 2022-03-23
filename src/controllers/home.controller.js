@@ -17,7 +17,6 @@ let getCRUD = (req, res) => {
 
 let postCRUD = async (req, res) => {
     let message = await CRUDService.createNewUser(req.body);
-    console.log(message);
     return res.send('post from crud')
 }
 
@@ -33,10 +32,6 @@ let getEditCRUD = async (req, res) => {
 
     if (userId) {
         let userData = await CRUDService.getUserById(userId);
-        // console.log(`----------`);
-        // console.log(userData);
-        // console.log(`----------`);
-        //check userData
 
         return res.render("editCRUD.ejs", {
             user: userData
