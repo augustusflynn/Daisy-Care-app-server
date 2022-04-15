@@ -13,7 +13,6 @@ app.use(function (req, res, next) {
   const allowedOrigins = [process.env.MOBILE_APP, process.env.URL_REACT1, process.env.URL_REACT2, process.env.URL_REACT3];
   const origin = req.headers.origin;
   if (origin && allowedOrigins.includes(origin)) {
-    console.log('origin', origin);
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
 
