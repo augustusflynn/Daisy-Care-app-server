@@ -1,6 +1,6 @@
 const express = require('express');
 const homeController = require('../controllers/home.controller');
-const userController = require('../controllers/user.controller');;
+const userController = require('../controllers/user.controller');
 const doctorController = require('../controllers/doctor.controller');
 const patientController = require('../controllers/patient.controller');
 const specialtyController = require('../controllers/specialty.controller');
@@ -10,7 +10,7 @@ let router = express.Router();
 
 let initWebRoutes = (app) => {
     router.get('/', homeController.getHomePage);
-    
+
     router.post('/AI/findUser', userController.handleFindUser);
 
     router.post('/api/login', userController.handleLogin)

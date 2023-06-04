@@ -1,4 +1,4 @@
-const db = require ('../models/index');
+const db = require('../models/index');
 const bcrypt = require('bcryptjs');
 const axios = require('axios');
 
@@ -352,8 +352,8 @@ let findUserSchedules = (userId) => {
 			let dataSchedule = await db.Booking.findAll({
 				where: { patientId: userId },
 				include: [
-						{ model: db.Allcode, as: 'timeData', attributes: ["valueEn", "valueVi"] },
-						{ model: db.User, as: 'doctor', attributes: ["firstName", "lastName"] },
+					{ model: db.Allcode, as: 'timeData', attributes: ["valueEn", "valueVi"] },
+					{ model: db.User, as: 'doctor', attributes: ["firstName", "lastName"] },
 				],
 				nest: true,
 				raw: true
